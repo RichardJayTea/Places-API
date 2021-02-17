@@ -1,0 +1,5 @@
+development:
+  dialect: mysql
+  datasource: root:@tcp(127.0.0.1:3306)/teago?parseTime=true
+  table: migrations
+  dir: migrations
