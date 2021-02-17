@@ -3,7 +3,7 @@ package app
 import (
 	"database/sql"
 	"fmt"
-	"github.com/YOUR-USER-OR-ORG-NAME/YOUR-REPO-NAME/cmd/teago/app/handlers"
+	"github.com/richardjaytea/teago/cmd/teago/app/handlers"
 	"log"
 	"net/http"
 

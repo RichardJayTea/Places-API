@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/YOUR-USER-OR-ORG-NAME/YOUR-REPO-NAME/internal/app/teago/user"
+	"github.com/richardjaytea/teago/internal/app/teago/user"
 	"net/http"
 )
 
