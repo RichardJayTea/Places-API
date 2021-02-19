@@ -57,5 +57,5 @@ func UpdateUserByID(db *sql.DB, id int, data map[string]interface{}) (*User, err
 		return nil, err
 	}
 
-	return GetUserByID(db, int(id))
+	return GetUserByID(db, id)
 }

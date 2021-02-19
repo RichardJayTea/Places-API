@@ -20,13 +20,13 @@ func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
 	u, err := user.CreateUser(h.DB, d)
 	if err != nil {
 		respondWithInternalServerError(w, err)
+		return
 	}
 
 	respondWithJSON(w, http.StatusOK, u)
 }
 
 func (h *Handler) HandleUpdateUser(w http.ResponseWriter, r *http.Request) {
-	// Put in middleware
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -37,11 +37,13 @@ func (h *Handler) HandleUpdateUser(w http.ResponseWriter, r *http.Request) {
 	var d map[string]interface{}
 	if err := decode(r, &d); err != nil {
 		respondWithBadRequest(w)
+		return
 	}
 
 	u, err := user.UpdateUserByID(h.DB, id, d)
 	if err != nil {
 		respondWithInternalServerError(w, err)
+		return
 	}
 
 	respondWithJSON(w, http.StatusOK, u)
