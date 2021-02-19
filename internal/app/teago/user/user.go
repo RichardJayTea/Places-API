@@ -1,6 +1,13 @@
 package user
 
-import "database/sql"
+import (
+	"database/sql"
+	"fmt"
+	"github.com/richardjaytea/teago/cmd/teago/app/requests"
+	"github.com/richardjaytea/teago/internal/app/teago/dbhelper"
+)
+
+const table = "teago.user"
 
 type User struct {
 	ID         int    `json:"uid"`
@@ -13,22 +20,42 @@ type User struct {
 	CreateDate string `json:"create_date"`
 }
 
-func (u *User) CreateUser(db *sql.DB) error {
+func CreateUser(db *sql.DB, data requests.CreateUser) (*User, error) {
 	result, err := db.Exec(
 		"INSERT INTO teago.user (username, password, email, first_name, last_name, is_active) VALUES (?, ?, ?, ?, ?, ?)",
-		u.Username, "somepassword", u.Email, u.FirstName, u.LastName, 1)
+		data.Username, "somepassword", data.Email, data.FirstName, data.LastName, 1)
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	id, _ := result.LastInsertId()
 
-	return u.GetUserByID(db, int(id))
+	return GetUserByID(db, int(id))
 }
 
-func (u *User) GetUserByID(db *sql.DB, id int) error {
-	return db.QueryRow(
-		"SELECT uid, username, email, first_name, last_name, is_active, image_path, create_date FROM user WHERE uid = ?",
+func GetUserByID(db *sql.DB, id int) (*User, error) {
+	var u User
+	err := db.QueryRow(
+		"SELECT uid, username, email, first_name, last_name, is_active, image_path, create_date FROM teago.user WHERE uid = ?",
 		id).Scan(&u.ID, &u.Username, &u.Email, &u.FirstName, &u.LastName, &u.IsActive, &u.ImagePath, &u.CreateDate)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &u, nil
+}
+
+func UpdateUserByID(db *sql.DB, id int, data map[string]interface{}) (*User, error) {
+	w := fmt.Sprintf("WHERE uid = %d", id)
+	s, p := dbhelper.BuildUpdateStatement(table, data, w)
+
+	_, err := db.Exec(s, p...)
+
+	if err != nil && err != sql.ErrNoRows {
+		return nil, err
+	}
+
+	return GetUserByID(db, int(id))
 }
