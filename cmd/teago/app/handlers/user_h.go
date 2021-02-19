@@ -2,14 +2,13 @@ package handlers
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/richardjaytea/teago/cmd/teago/app/requests"
 	"github.com/richardjaytea/teago/internal/app/teago/user"
 	"net/http"
 	"strconv"
 )
 
 func (h *Handler) HandleCreateUser(w http.ResponseWriter, r *http.Request) {
-	var d requests.CreateUser
+	var d map[string]interface{}
 
 	if err := decode(r, &d); err != nil {
 		respondWithBadRequest(w)

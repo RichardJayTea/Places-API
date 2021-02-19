@@ -4,7 +4,7 @@ CREATE TABLE teago.`place` (
                               external_id INT NOT NULL,
                               name VARCHAR(150) NOT NULL,
                               description VARCHAR(255) NOT NULL,
-                              image_path VARCHAR(150) NOT NULL,
+                              image_path VARCHAR(150) NOT NULL DEFAULT '',
                               is_active TINYINT(4) NOT NULL,
                               create_date TIMESTAMP NOT NULL,
                               CONSTRAINT place_PK PRIMARY KEY (uid)

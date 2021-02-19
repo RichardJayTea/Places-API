@@ -3,7 +3,6 @@ package user
 import (
 	"database/sql"
 	"fmt"
-	"github.com/richardjaytea/teago/cmd/teago/app/requests"
 	"github.com/richardjaytea/teago/internal/app/teago/dbhelper"
 )
 
@@ -20,10 +19,10 @@ type User struct {
 	CreateDate string `json:"create_date"`
 }
 
-func CreateUser(db *sql.DB, data requests.CreateUser) (*User, error) {
+func CreateUser(db *sql.DB, data map[string]interface{}) (*User, error) {
 	result, err := db.Exec(
 		"INSERT INTO teago.user (username, password, email, first_name, last_name, is_active) VALUES (?, ?, ?, ?, ?, ?)",
-		data.Username, "somepassword", data.Email, data.FirstName, data.LastName, 1)
+		data["username"], "somepassword", data["email"], data["first_name"], data["last_name"], 1)
 
 	if err != nil {
 		return nil, err
