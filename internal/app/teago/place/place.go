@@ -1,6 +1,10 @@
 package place
 
-import "database/sql"
+import (
+	"database/sql"
+	"fmt"
+	"github.com/richardjaytea/teago/internal/app/teago/dbhelper"
+)
 
 const table = "teago.place"
 
@@ -43,4 +47,15 @@ func GetPlaceById(db *sql.DB, id int) (*Place, error) {
 	}
 
 	return &p, nil
+}
+
+func UpdatePlace(db *sql.DB, id int, data map[string]interface{}) (*Place, error) {
+	w := fmt.Sprintf("WHERE uid = %d", id)
+	stmt, p := dbhelper.BuildUpdateStatement(table, data, w)
+
+	if _, err := db.Exec(stmt, p...); err != nil {
+		return nil, err
+	}
+
+	return GetPlaceById(db, id)
 }

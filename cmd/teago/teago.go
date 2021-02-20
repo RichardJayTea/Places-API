@@ -17,9 +17,11 @@ func run() error {
 	s := app.Server{}
 
 	err := s.Initialize(
-		os.Getenv("APP_DB_USERNAME"),
-		os.Getenv("APP_DB_PASSWORD"),
-		os.Getenv("APP_DB_NAME"))
+		vGetEnv("APP_DB_USERNAME"),
+		vGetEnv("APP_DB_PASSWORD"),
+		vGetEnv("APP_DB_HOST"),
+		vGetEnv("APP_DB_PORT"),
+		vGetEnv("APP_DB_NAME"))
 
 	if err != nil {
 		return err

@@ -7,4 +7,5 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/jmoiron/sqlx v1.3.1 // indirect
 	github.com/rubenv/sql-migrate v0.0.0-20210215143335-f84234893558 // indirect
+	github.com/spf13/viper v1.7.1
 )

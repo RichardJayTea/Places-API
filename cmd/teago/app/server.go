@@ -18,9 +18,9 @@ type Server struct {
 }
 
 // Initialize DB and Router for Server struct
-func (s *Server) Initialize(user, password, dbname string) error {
+func (s *Server) Initialize(user, password, host, port, dbname string) error {
 	connectionString :=
-		fmt.Sprintf("%s:%s@tcp(127.0.0.1:3306)/%s", user, password, dbname)
+		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", user, password, host, port, dbname)
 
 	var err error
 	s.DB, err = sql.Open("mysql", connectionString)
