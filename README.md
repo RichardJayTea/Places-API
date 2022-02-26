@@ -1,2 +1,2 @@
-Models: /internal/app/teago/<br>
-Routes & Handlers: /cmd/teago/
+<b>Models:</b> /internal/app/teago/<br>
+<b>Routes & Handlers:</b> /cmd/teago/app/
