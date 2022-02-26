@@ -1,2 +1,2 @@
-Sample code:
-/internal/app/teago/
+Models: /internal/app/teago/<br>
+Routes & Handlers: /cmd/teago/
